@@ -1,0 +1,1453 @@
+{
+	"page": 1,
+	"total": 21,
+	"per_page": 50,
+	"data": [
+		{
+			"id": "b62330a0-9f7d-11eb-86c1-b7686061cd45",
+			"consumer": "alerts",
+			"tags": [
+				"staging"
+			],
+			"name": "Staging - Systemd Services",
+			"enabled": false,
+			"throttle": null,
+			"schedule": {
+				"interval": "1m"
+			},
+			"params": {
+				"criteria": [
+					{
+						"comparator": ">",
+						"timeSize": 5,
+						"metric": "process.cpu.pct",
+						"aggType": "max",
+						"threshold": [
+							1
+						],
+						"timeUnit": "m"
+					}
+				],
+				"sourceId": "default",
+				"alertOnNoData": false,
+				"filterQueryText": "process.cpu.pct: * AND fields.environment: development",
+				"filterQuery": "{\"bool\":{\"filter\":[{\"bool\":{\"should\":[{\"exists\":{\"field\":\"process.cpu.pct\"}}],\"minimum_should_match\":1}},{\"bool\":{\"should\":[{\"match\":{\"fields.environment\":\"development\"}}],\"minimum_should_match\":1}}]}}",
+				"groupBy": [
+					"process.name.keyword"
+				]
+			},
+			"rule_type_id": "metrics.alert.threshold",
+			"created_by": "albert",
+			"updated_by": "jason.robin",
+			"created_at": "2021-04-17T13:06:25.117Z",
+			"updated_at": "2023-01-13T21:39:33.610Z",
+			"api_key_owner": null,
+			"notify_when": "onActionGroupChange",
+			"mute_all": false,
+			"muted_alert_ids": [],
+			"execution_status": {
+				"status": "active",
+				"last_execution_date": "2023-01-13T21:38:55.580Z",
+				"last_duration": 700
+			},
+			"actions": [
+				{
+					"group": "metrics.threshold.fired",
+					"id": "9743de50-9eec-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "```{{alertName}} - {{context.group}} is in a state of {{context.alertState}}\n\nReason:\n{{context.reason}}```\n\n"
+					},
+					"connector_type_id": ".slack"
+				},
+				{
+					"group": "recovered",
+					"id": "9743de50-9eec-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "```{{alertName}} - {{context.group}} - {{alertInstanceId}} has recovered```"
+					},
+					"connector_type_id": ".slack"
+				}
+			]
+		},
+		{
+			"id": "f9e2db10-a9b9-11eb-86c1-b7686061cd45",
+			"consumer": "alerts",
+			"tags": [
+				"revenue"
+			],
+			"name": "Production - Commissions",
+			"enabled": true,
+			"throttle": null,
+			"schedule": {
+				"interval": "1d"
+			},
+			"params": {
+				"criteria": [
+					{
+						"comparator": "<",
+						"timeSize": 48,
+						"metric": "gross_commission",
+						"aggType": "max",
+						"threshold": [
+							5000
+						],
+						"timeUnit": "d"
+					}
+				],
+				"sourceId": "default",
+				"alertOnNoData": true
+			},
+			"rule_type_id": "metrics.alert.threshold",
+			"created_by": "albert",
+			"updated_by": "2836274424",
+			"created_at": "2021-04-30T13:42:59.962Z",
+			"updated_at": "2022-09-19T15:30:37.589Z",
+			"api_key_owner": "albert",
+			"notify_when": "onActionGroupChange",
+			"mute_all": false,
+			"muted_alert_ids": [],
+			"scheduled_task_id": "c0cb6240-cb1c-11ec-90b6-57a29a760dcb",
+			"execution_status": {
+				"status": "ok",
+				"last_execution_date": "2024-02-08T23:37:54.213Z",
+				"last_duration": 173
+			},
+			"actions": [
+				{
+					"group": "metrics.threshold.fired",
+					"id": "0ddd9000-a128-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "```{{alertName}} - {{context.group}} is in a state of {{context.alertState}}\n\nReason:\n{{context.reason}}```\n"
+					},
+					"connector_type_id": ".slack"
+				},
+				{
+					"group": "recovered",
+					"id": "0ddd9000-a128-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "```{{alertName}} - {{context.group}} - {{alertInstanceId}} has recovered```"
+					},
+					"connector_type_id": ".slack"
+				}
+			]
+		},
+		{
+			"id": "befdec30-a9bc-11eb-86c1-b7686061cd45",
+			"consumer": "alerts",
+			"tags": [],
+			"name": "Production - Crons",
+			"enabled": true,
+			"throttle": null,
+			"schedule": {
+				"interval": "1d"
+			},
+			"params": {
+				"criteria": [
+					{
+						"comparator": ">",
+						"timeSize": 2,
+						"metric": "failcode",
+						"aggType": "max",
+						"threshold": [
+							0
+						],
+						"timeUnit": "d"
+					}
+				],
+				"sourceId": "default",
+				"alertOnNoData": true,
+				"groupBy": [
+					"job.keyword"
+				]
+			},
+			"rule_type_id": "metrics.alert.threshold",
+			"created_by": "albert",
+			"updated_by": "2836274424",
+			"created_at": "2021-04-30T14:02:49.696Z",
+			"updated_at": "2022-09-19T15:30:37.597Z",
+			"api_key_owner": "albert",
+			"notify_when": "onActionGroupChange",
+			"mute_all": false,
+			"muted_alert_ids": [],
+			"scheduled_task_id": "c0cbd770-cb1c-11ec-90b6-57a29a760dcb",
+			"execution_status": {
+				"status": "active",
+				"last_execution_date": "2024-02-08T23:37:54.216Z",
+				"last_duration": 211
+			},
+			"actions": [
+				{
+					"group": "metrics.threshold.fired",
+					"id": "0ddd9000-a128-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "```{{alertName}} - {{context.group}} is in a state of {{context.alertState}}\n\nReason:\n{{context.reason}}```\n"
+					},
+					"connector_type_id": ".slack"
+				},
+				{
+					"group": "recovered",
+					"id": "0ddd9000-a128-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "```{{alertName}} - {{context.group}} - {{alertInstanceId}} has recovered```"
+					},
+					"connector_type_id": ".slack"
+				}
+			]
+		},
+		{
+			"id": "12546de0-5df0-11ec-ad34-07629ed0724f",
+			"consumer": "alerts",
+			"tags": [],
+			"name": "Business - Nginx Traffic",
+			"enabled": true,
+			"throttle": null,
+			"schedule": {
+				"interval": "30m"
+			},
+			"params": {
+				"esQuery": "{\n  \"query\": {\n      \"bool\": { \n          \"must\": [ \n              {\n                \"query_string\": {\n                    \"query\": \"response.keyword: 2* AND \\\"app-magiclinks-com\\\"\"\n                }\n              }\n            ] \n        }\n  }\n}",
+				"size": 100,
+				"timeWindowSize": 30,
+				"timeWindowUnit": "m",
+				"threshold": [
+					3
+				],
+				"thresholdComparator": "<",
+				"index": [
+					"nginxlogs-*"
+				],
+				"timeField": "@timestamp",
+				"searchType": "esQuery"
+			},
+			"rule_type_id": ".es-query",
+			"created_by": "albert",
+			"updated_by": "2836274424",
+			"created_at": "2021-12-15T21:43:47.640Z",
+			"updated_at": "2022-09-19T15:30:37.575Z",
+			"api_key_owner": "albert",
+			"notify_when": "onActionGroupChange",
+			"mute_all": false,
+			"muted_alert_ids": [],
+			"scheduled_task_id": "c0cbb060-cb1c-11ec-90b6-57a29a760dcb",
+			"execution_status": {
+				"status": "active",
+				"last_execution_date": "2024-02-09T19:19:34.674Z",
+				"last_duration": 104
+			},
+			"actions": [
+				{
+					"group": "query matched",
+					"id": "79ac2510-a9bd-11eb-86c1-b7686061cd45",
+					"params": {
+						"subject": "Creator Portal - Low Traffic Alarm Triggered",
+						"to": [
+							"tech-alerts@magiclinks.com"
+						],
+						"message": "Creator Portal traffic over the last 30 minutes is very low:\n\n- Value: {{context.value}}\n- Conditions Met: {{context.conditions}} over {{params.timeWindowSize}}{{params.timeWindowUnit}}\n- Timestamp: {{context.date}}"
+					},
+					"connector_type_id": ".email"
+				},
+				{
+					"group": "recovered",
+					"id": "79ac2510-a9bd-11eb-86c1-b7686061cd45",
+					"params": {
+						"subject": "Creator Portal - Low Traffic Alarm Triggered",
+						"to": [
+							"tech-alerts@magiclinks.com"
+						],
+						"message": "Creator Portal traffic over the last 30 minutes is very low:\n\n- Value: {{context.value}}\n- Conditions Met: {{context.conditions}} over {{params.timeWindowSize}}{{params.timeWindowUnit}}\n- Timestamp: {{context.date}}"
+					},
+					"connector_type_id": ".email"
+				},
+				{
+					"group": "recovered",
+					"id": "15d75610-5dcf-11ec-ad34-07629ed0724f",
+					"params": {
+						"message": "Creator Portal traffic over the last 5 minutes back up to acceptable values. Hits received in last 5 minutes - {{context.value}}"
+					},
+					"connector_type_id": ".slack"
+				},
+				{
+					"group": "recovered",
+					"id": "79ac2510-a9bd-11eb-86c1-b7686061cd45",
+					"params": {
+						"subject": "Creator Portal traffic recovered",
+						"to": [
+							"tech-alerts@magiclinks.com"
+						],
+						"message": "Creator Portal traffic over the last 5 minutes back up to acceptable values. Hits received in last 5 minutes - {{context.value}}"
+					},
+					"connector_type_id": ".email"
+				}
+			]
+		},
+		{
+			"id": "6a861150-5df3-11ec-ad34-07629ed0724f",
+			"consumer": "alerts",
+			"tags": [
+				"business"
+			],
+			"name": "Business - Apache Errors",
+			"enabled": true,
+			"throttle": null,
+			"schedule": {
+				"interval": "5m"
+			},
+			"params": {
+				"esQuery": "{\n  \"query\": {\n      \"bool\": { \n          \"must\": [ \n              {\n                \"query_string\": {\n                    \"query\": \"filename: \\\"shop-access\\\" AND response: 5*\"\n                }\n              }\n            ] \n        }\n  }\n}",
+				"size": 100,
+				"timeWindowSize": 5,
+				"timeWindowUnit": "m",
+				"threshold": [
+					100
+				],
+				"thresholdComparator": ">",
+				"index": [
+					"apachelogs-*"
+				],
+				"timeField": "@timestamp",
+				"searchType": "esQuery"
+			},
+			"rule_type_id": ".es-query",
+			"created_by": "albert",
+			"updated_by": "2836274424",
+			"created_at": "2021-12-15T22:07:39.820Z",
+			"updated_at": "2022-09-19T15:30:37.591Z",
+			"api_key_owner": "2836274424",
+			"notify_when": "onActionGroupChange",
+			"mute_all": false,
+			"muted_alert_ids": [],
+			"scheduled_task_id": "ef94d400-382f-11ed-9f15-71d5ff75d881",
+			"execution_status": {
+				"status": "ok",
+				"last_execution_date": "2024-02-09T19:33:58.623Z",
+				"last_duration": 102
+			},
+			"actions": [
+				{
+					"group": "query matched",
+					"id": "79ac2510-a9bd-11eb-86c1-b7686061cd45",
+					"params": {
+						"subject": "Clicks High Error Count Alert - Triggered",
+						"to": [
+							"tech-alerts@magiclinks.com"
+						],
+						"message": "Clicks high error count alert triggered\n\n- Value: {{context.value}}\n- Conditions Met: {{context.conditions}} over {{params.timeWindowSize}}{{params.timeWindowUnit}}\n- Timestamp: {{context.date}}"
+					},
+					"connector_type_id": ".email"
+				},
+				{
+					"group": "recovered",
+					"id": "79ac2510-a9bd-11eb-86c1-b7686061cd45",
+					"params": {
+						"subject": "Clicks High Error Count Alert - Triggered",
+						"to": [
+							"tech-alerts@magiclinks.com"
+						],
+						"message": "Clicks high error count alert over the last 5 minutes back up to acceptable values. Hits received in last 5 minutes - {{context.value}}"
+					},
+					"connector_type_id": ".email"
+				},
+				{
+					"group": "query matched",
+					"id": "15d75610-5dcf-11ec-ad34-07629ed0724f",
+					"params": {
+						"message": "Clicks high error count alert triggered\n\n- Value: {{context.value}}\n- Conditions Met: {{context.conditions}} over {{params.timeWindowSize}}{{params.timeWindowUnit}}\n- Timestamp: {{context.date}}"
+					},
+					"connector_type_id": ".slack"
+				},
+				{
+					"group": "recovered",
+					"id": "15d75610-5dcf-11ec-ad34-07629ed0724f",
+					"params": {
+						"message": "Clicks high error count alert over the last 5 minutes back up to acceptable values. Hits received in last 5 minutes - {{context.value}}"
+					},
+					"connector_type_id": ".slack"
+				}
+			]
+		},
+		{
+			"id": "16043cc0-ee21-11eb-86c1-b7686061cd45",
+			"consumer": "alerts",
+			"tags": [],
+			"name": "Redshift Status",
+			"throttle": null,
+			"enabled": true,
+			"schedule": {
+				"interval": "10m"
+			},
+			"params": {
+				"criteria": [
+					{
+						"comparator": "<",
+						"timeSize": 20,
+						"metric": "maximum",
+						"aggType": "max",
+						"threshold": [
+							1
+						],
+						"timeUnit": "m"
+					}
+				],
+				"sourceId": "default",
+				"filterQueryText": "namespace: \"AWS/Redshift\" AND metric_name: \"HealthStatus\"",
+				"filterQuery": "{\"bool\":{\"filter\":[{\"bool\":{\"should\":[{\"match_phrase\":{\"namespace\":\"AWS/Redshift\"}}],\"minimum_should_match\":1}},{\"bool\":{\"should\":[{\"match_phrase\":{\"metric_name\":\"HealthStatus\"}}],\"minimum_should_match\":1}}]}}",
+				"groupBy": [
+					"ClusterIdentifier.keyword"
+				],
+				"alertOnNoData": false,
+				"alertOnGroupDisappear": true
+			},
+			"rule_type_id": "metrics.alert.threshold",
+			"created_by": "2836274424",
+			"updated_by": "bryce.andress-nml",
+			"created_at": "2021-07-26T14:52:24.152Z",
+			"updated_at": "2023-01-09T21:34:30.054Z",
+			"api_key_owner": "bryce.andress-nml",
+			"notify_when": "onActiveAlert",
+			"mute_all": false,
+			"muted_alert_ids": [],
+			"scheduled_task_id": "d285ce31-cb1c-11ec-90b6-57a29a760dcb",
+			"execution_status": {
+				"status": "ok",
+				"last_execution_date": "2024-02-09T19:31:16.569Z",
+				"last_duration": 452
+			},
+			"actions": [
+				{
+					"group": "metrics.threshold.fired",
+					"id": "0ddd9000-a128-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "{{alertName}} - {{context.group}} is in a state of {{context.alertState}}\n\nReason:\n{{context.reason}}\n"
+					},
+					"connector_type_id": ".slack"
+				}
+			]
+		},
+		{
+			"id": "ab16c360-5df1-11ec-ad34-07629ed0724f",
+			"consumer": "alerts",
+			"tags": [],
+			"name": "Business - Nginx Errors",
+			"enabled": true,
+			"throttle": null,
+			"schedule": {
+				"interval": "5m"
+			},
+			"params": {
+				"esQuery": "{\n  \"query\": {\n      \"bool\": { \n          \"must\": [ \n              {\n                \"query_string\": {\n                    \"query\": \"response.keyword: 5* AND \\\"app-magiclinks-com\\\"\"\n                }\n              }\n            ] \n        }\n  }\n}",
+				"size": 100,
+				"timeWindowSize": 5,
+				"timeWindowUnit": "m",
+				"threshold": [
+					100
+				],
+				"thresholdComparator": ">",
+				"index": [
+					"nginxlogs-*"
+				],
+				"timeField": "@timestamp",
+				"searchType": "esQuery"
+			},
+			"rule_type_id": ".es-query",
+			"created_by": "albert",
+			"updated_by": "2836274424",
+			"created_at": "2021-12-15T21:55:09.011Z",
+			"updated_at": "2022-09-19T15:30:37.588Z",
+			"api_key_owner": "albert",
+			"notify_when": "onActionGroupChange",
+			"mute_all": false,
+			"muted_alert_ids": [],
+			"scheduled_task_id": "c0cc2591-cb1c-11ec-90b6-57a29a760dcb",
+			"execution_status": {
+				"status": "ok",
+				"last_execution_date": "2024-02-09T19:37:55.599Z",
+				"last_duration": 221
+			},
+			"actions": [
+				{
+					"group": "query matched",
+					"id": "79ac2510-a9bd-11eb-86c1-b7686061cd45",
+					"params": {
+						"subject": "Creator Portal High Error Count Alert - Triggered",
+						"to": [
+							"tech-alerts@magiclinks.com"
+						],
+						"message": "Creator Portal high error count alert triggered\n\n- Value: {{context.value}}\n- Conditions Met: {{context.conditions}} over {{params.timeWindowSize}}{{params.timeWindowUnit}}\n- Timestamp: {{context.date}}"
+					},
+					"connector_type_id": ".email"
+				},
+				{
+					"group": "recovered",
+					"id": "79ac2510-a9bd-11eb-86c1-b7686061cd45",
+					"params": {
+						"subject": "Creator Portal High Error Count Alert - Recovered",
+						"to": [
+							"tech-alerts@magiclinks.com"
+						],
+						"message": "Creator Portal traffic over the last 5 minutes back up to acceptable values. Hits received in last 5 minutes - {{context.value}}"
+					},
+					"connector_type_id": ".email"
+				},
+				{
+					"group": "query matched",
+					"id": "15d75610-5dcf-11ec-ad34-07629ed0724f",
+					"params": {
+						"message": "Creator Portal high error count alert triggered\n\n- Value: {{context.value}}\n- Conditions Met: {{context.conditions}} over {{params.timeWindowSize}}{{params.timeWindowUnit}}\n- Timestamp: {{context.date}}"
+					},
+					"connector_type_id": ".slack"
+				},
+				{
+					"group": "recovered",
+					"id": "15d75610-5dcf-11ec-ad34-07629ed0724f",
+					"params": {
+						"message": "Creator Portal traffic over the last 5 minutes back up to acceptable values. Hits received in last 5 minutes - {{context.value}}"
+					},
+					"connector_type_id": ".slack"
+				}
+			]
+		},
+		{
+			"id": "cb9d2180-af15-11ed-9794-5d2ff48edbe4",
+			"consumer": "uptime",
+			"tags": [
+				"UPTIME_AUTO"
+			],
+			"name": "STAGING Social Data Service(Simple status alert)",
+			"enabled": true,
+			"throttle": null,
+			"schedule": {
+				"interval": "1m"
+			},
+			"params": {
+				"numTimes": 1,
+				"timerangeUnit": "m",
+				"timerangeCount": 1,
+				"shouldCheckStatus": true,
+				"shouldCheckAvailability": false,
+				"isAutoGenerated": true,
+				"search": "monitor.id : 79a6d33f-2730-4d99-bb3e-c037109f8279 ",
+				"filters": {
+					"url.port": [],
+					"observer.geo.name": [],
+					"monitor.type": [],
+					"tags": []
+				}
+			},
+			"rule_type_id": "xpack.uptime.alerts.monitorStatus",
+			"created_by": "bryce.andress-nml",
+			"updated_by": "bryce.andress-nml",
+			"created_at": "2023-02-17T22:52:46.772Z",
+			"updated_at": "2023-02-17T22:52:46.772Z",
+			"api_key_owner": "bryce.andress-nml",
+			"notify_when": "onActionGroupChange",
+			"mute_all": false,
+			"muted_alert_ids": [],
+			"scheduled_task_id": "cb9d2180-af15-11ed-9794-5d2ff48edbe4",
+			"execution_status": {
+				"status": "ok",
+				"last_execution_date": "2024-02-09T19:37:55.596Z",
+				"last_duration": 501
+			},
+			"actions": [
+				{
+					"group": "recovered",
+					"id": "0ddd9000-a128-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "Monitor STAGING Social Data Service with url https://social-data.staging.magikops.com/ping has recovered with status Up"
+					},
+					"connector_type_id": ".slack"
+				},
+				{
+					"group": "xpack.uptime.alerts.actionGroups.monitorStatus",
+					"id": "0ddd9000-a128-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "Monitor {{context.monitorName}} with url {{{context.monitorUrl}}} from {{context.observerLocation}} {{{context.statusMessage}}} The latest error message is {{{context.latestErrorMessage}}}"
+					},
+					"connector_type_id": ".slack"
+				}
+			]
+		},
+		{
+			"id": "cff3aa60-af15-11ed-9794-5d2ff48edbe4",
+			"consumer": "uptime",
+			"tags": [
+				"UPTIME_AUTO"
+			],
+			"name": "PROD Social Data Service(Simple status alert)",
+			"enabled": true,
+			"throttle": null,
+			"schedule": {
+				"interval": "1m"
+			},
+			"params": {
+				"numTimes": 1,
+				"timerangeUnit": "m",
+				"timerangeCount": 1,
+				"shouldCheckStatus": true,
+				"shouldCheckAvailability": false,
+				"isAutoGenerated": true,
+				"search": "monitor.id : e706597a-b7f3-4395-abb0-4ceeccd26e51 ",
+				"filters": {
+					"url.port": [],
+					"observer.geo.name": [],
+					"monitor.type": [],
+					"tags": []
+				}
+			},
+			"rule_type_id": "xpack.uptime.alerts.monitorStatus",
+			"created_by": "bryce.andress-nml",
+			"updated_by": "bryce.andress-nml",
+			"created_at": "2023-02-17T22:52:54.554Z",
+			"updated_at": "2023-02-17T22:52:54.554Z",
+			"api_key_owner": "bryce.andress-nml",
+			"notify_when": "onActionGroupChange",
+			"mute_all": false,
+			"muted_alert_ids": [],
+			"scheduled_task_id": "cff3aa60-af15-11ed-9794-5d2ff48edbe4",
+			"execution_status": {
+				"status": "ok",
+				"last_execution_date": "2024-02-09T19:37:55.595Z",
+				"last_duration": 634
+			},
+			"actions": [
+				{
+					"group": "recovered",
+					"id": "0ddd9000-a128-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "Monitor PROD Social Data Service with url https://social-data.services.magiclinks.com/ping has recovered with status Up"
+					},
+					"connector_type_id": ".slack"
+				},
+				{
+					"group": "xpack.uptime.alerts.actionGroups.monitorStatus",
+					"id": "0ddd9000-a128-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "Monitor {{context.monitorName}} with url {{{context.monitorUrl}}} from {{context.observerLocation}} {{{context.statusMessage}}} The latest error message is {{{context.latestErrorMessage}}}"
+					},
+					"connector_type_id": ".slack"
+				}
+			]
+		},
+		{
+			"id": "3cbb9410-af1a-11ed-9794-5d2ff48edbe4",
+			"consumer": "uptime",
+			"tags": [
+				"UPTIME_AUTO"
+			],
+			"name": "Staging ML API Service(Simple status alert)",
+			"enabled": true,
+			"throttle": null,
+			"schedule": {
+				"interval": "1m"
+			},
+			"params": {
+				"numTimes": 1,
+				"timerangeUnit": "m",
+				"timerangeCount": 1,
+				"shouldCheckStatus": true,
+				"shouldCheckAvailability": false,
+				"isAutoGenerated": true,
+				"search": "monitor.id : 16198c09-df06-4191-993a-d9472094b89e ",
+				"filters": {
+					"url.port": [],
+					"observer.geo.name": [],
+					"monitor.type": [],
+					"tags": []
+				}
+			},
+			"rule_type_id": "xpack.uptime.alerts.monitorStatus",
+			"created_by": "bryce.andress-nml",
+			"updated_by": "bryce.andress-nml",
+			"created_at": "2023-02-17T23:24:34.436Z",
+			"updated_at": "2023-02-17T23:24:34.436Z",
+			"api_key_owner": "bryce.andress-nml",
+			"notify_when": "onActionGroupChange",
+			"mute_all": false,
+			"muted_alert_ids": [],
+			"scheduled_task_id": "3cbb9410-af1a-11ed-9794-5d2ff48edbe4",
+			"execution_status": {
+				"status": "ok",
+				"last_execution_date": "2024-02-09T19:37:55.597Z",
+				"last_duration": 645
+			},
+			"actions": [
+				{
+					"group": "recovered",
+					"id": "0ddd9000-a128-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "Monitor Staging ML API Service with url https://api.staging.magikops.com/ping has recovered with status Up"
+					},
+					"connector_type_id": ".slack"
+				},
+				{
+					"group": "xpack.uptime.alerts.actionGroups.monitorStatus",
+					"id": "0ddd9000-a128-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "Monitor {{context.monitorName}} with url {{{context.monitorUrl}}} from {{context.observerLocation}} {{{context.statusMessage}}} The latest error message is {{{context.latestErrorMessage}}}"
+					},
+					"connector_type_id": ".slack"
+				}
+			]
+		},
+		{
+			"id": "2ce74ce0-9f78-11eb-86c1-b7686061cd45",
+			"consumer": "alerts",
+			"tags": [
+				"staging"
+			],
+			"name": "Staging - Memory",
+			"enabled": true,
+			"throttle": null,
+			"schedule": {
+				"interval": "1m"
+			},
+			"params": {
+				"criteria": [
+					{
+						"comparator": ">",
+						"timeSize": 5,
+						"metric": "system.memory.actual.used.pct",
+						"aggType": "avg",
+						"threshold": [
+							0.9
+						],
+						"timeUnit": "m"
+					}
+				],
+				"sourceId": "default",
+				"filterQueryText": "system.memory.actual.used.pct: * AND fields.environment: development",
+				"filterQuery": "{\"bool\":{\"filter\":[{\"bool\":{\"should\":[{\"exists\":{\"field\":\"system.memory.actual.used.pct\"}}],\"minimum_should_match\":1}},{\"bool\":{\"should\":[{\"match\":{\"fields.environment\":\"development\"}}],\"minimum_should_match\":1}}]}}",
+				"groupBy": [
+					"fields.hostname.keyword"
+				]
+			},
+			"rule_type_id": "metrics.alert.threshold",
+			"created_by": "albert",
+			"updated_by": "2836274424",
+			"created_at": "2021-04-17T12:26:47.029Z",
+			"updated_at": "2022-09-19T15:31:07.218Z",
+			"api_key_owner": "albert",
+			"notify_when": "onActionGroupChange",
+			"mute_all": false,
+			"muted_alert_ids": [],
+			"scheduled_task_id": "d2864360-cb1c-11ec-90b6-57a29a760dcb",
+			"execution_status": {
+				"status": "active",
+				"last_execution_date": "2024-02-09T19:37:55.597Z",
+				"last_duration": 700
+			},
+			"actions": [
+				{
+					"group": "metrics.threshold.fired",
+					"id": "9743de50-9eec-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "```{{alertName}} - {{context.group}} is in a state of {{context.alertState}}\n\nReason:\n{{context.reason}}```\n"
+					},
+					"connector_type_id": ".slack"
+				},
+				{
+					"group": "recovered",
+					"id": "9743de50-9eec-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "```{{alertName}} - {{context.group}} - {{alertInstanceId}} has recovered```"
+					},
+					"connector_type_id": ".slack"
+				}
+			]
+		},
+		{
+			"id": "55a9e840-5dcd-11ec-ad34-07629ed0724f",
+			"consumer": "alerts",
+			"tags": [
+				"business"
+			],
+			"name": "Business - Endpoint Monitor",
+			"enabled": true,
+			"throttle": null,
+			"schedule": {
+				"interval": "1m"
+			},
+			"params": {
+				"criteria": [
+					{
+						"comparator": ">",
+						"timeSize": 10,
+						"metric": "summary.down",
+						"aggType": "sum",
+						"threshold": [
+							5
+						],
+						"timeUnit": "m"
+					}
+				],
+				"sourceId": "default",
+				"groupBy": [
+					"monitor.name.keyword"
+				],
+				"alertOnNoData": true,
+				"alertOnGroupDisappear": true
+			},
+			"rule_type_id": "metrics.alert.threshold",
+			"created_by": "albert",
+			"updated_by": "jason.robin",
+			"created_at": "2021-12-15T17:35:03.621Z",
+			"updated_at": "2023-05-11T16:33:21.802Z",
+			"api_key_owner": "jason.robin",
+			"notify_when": "onActionGroupChange",
+			"mute_all": false,
+			"muted_alert_ids": [],
+			"scheduled_task_id": "c0cb8950-cb1c-11ec-90b6-57a29a760dcb",
+			"execution_status": {
+				"status": "active",
+				"last_execution_date": "2024-02-09T19:37:55.598Z",
+				"last_duration": 707
+			},
+			"actions": [
+				{
+					"group": "metrics.threshold.fired",
+					"id": "79ac2510-a9bd-11eb-86c1-b7686061cd45",
+					"params": {
+						"subject": "{{alertName}} - {{context.group}} is in a state of {{context.alertState}}",
+						"to": [
+							"tech-alerts@magiclinks.com"
+						],
+						"message": "{{alertName}} - {{context.group}} is in a state of {{context.alertState}}\n\nReason:\n{{context.reason}}\n"
+					},
+					"connector_type_id": ".email"
+				},
+				{
+					"group": "metrics.threshold.fired",
+					"id": "15d75610-5dcf-11ec-ad34-07629ed0724f",
+					"params": {
+						"message": "```{{alertName}} - {{context.group}} is in a state of {{context.alertState}}\n\nReason:\n{{context.reason}}```\n"
+					},
+					"connector_type_id": ".slack"
+				},
+				{
+					"group": "recovered",
+					"id": "15d75610-5dcf-11ec-ad34-07629ed0724f",
+					"params": {
+						"message": "```{{alertName}} - {{context.group}} - {{alertInstanceId}} has recovered```"
+					},
+					"connector_type_id": ".slack"
+				},
+				{
+					"group": "recovered",
+					"id": "79ac2510-a9bd-11eb-86c1-b7686061cd45",
+					"params": {
+						"subject": "{{alertName}} - {{context.group}} - {{alertInstanceId}} has recovered",
+						"to": [
+							"tech-alerts@magiclinks.com"
+						],
+						"message": "{{alertName}} - {{context.group}} - {{alertInstanceId}} has recovered"
+					},
+					"connector_type_id": ".email"
+				}
+			]
+		},
+		{
+			"id": "a11e3480-a9b8-11eb-86c1-b7686061cd45",
+			"consumer": "alerts",
+			"tags": [
+				"portals"
+			],
+			"name": "Production - Portals Uptime",
+			"enabled": true,
+			"throttle": null,
+			"schedule": {
+				"interval": "1m"
+			},
+			"params": {
+				"criteria": [
+					{
+						"comparator": ">",
+						"timeSize": 5,
+						"metric": "summary.down",
+						"aggType": "sum",
+						"threshold": [
+							3
+						],
+						"timeUnit": "m"
+					}
+				],
+				"sourceId": "default",
+				"alertOnNoData": true,
+				"groupBy": [
+					"monitor.name.keyword"
+				]
+			},
+			"rule_type_id": "metrics.alert.threshold",
+			"created_by": "albert",
+			"updated_by": "2836274424",
+			"created_at": "2021-04-30T13:33:21.604Z",
+			"updated_at": "2022-09-19T15:31:07.232Z",
+			"api_key_owner": "albert",
+			"notify_when": "onActionGroupChange",
+			"mute_all": false,
+			"muted_alert_ids": [],
+			"scheduled_task_id": "d2858010-cb1c-11ec-90b6-57a29a760dcb",
+			"execution_status": {
+				"status": "active",
+				"last_execution_date": "2024-02-09T19:37:55.597Z",
+				"last_duration": 727
+			},
+			"actions": [
+				{
+					"group": "metrics.threshold.fired",
+					"id": "0ddd9000-a128-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "```{{alertName}} - {{context.group}} is in a state of {{context.alertState}}\n\nReason:\n{{context.reason}}```\n"
+					},
+					"connector_type_id": ".slack"
+				},
+				{
+					"group": "recovered",
+					"id": "0ddd9000-a128-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "```{{alertName}} - {{context.group}} - {{alertInstanceId}} has recovered```"
+					},
+					"connector_type_id": ".slack"
+				}
+			]
+		},
+		{
+			"id": "26ca0470-a13e-11eb-86c1-b7686061cd45",
+			"consumer": "alerts",
+			"tags": [
+				"production"
+			],
+			"name": "Production - Systemd Services",
+			"enabled": true,
+			"throttle": null,
+			"schedule": {
+				"interval": "1m"
+			},
+			"params": {
+				"criteria": [
+					{
+						"comparator": ">",
+						"timeSize": 5,
+						"metric": "process.cpu.pct",
+						"aggType": "avg",
+						"threshold": [
+							1
+						],
+						"timeUnit": "m"
+					}
+				],
+				"sourceId": "default",
+				"filterQueryText": "process.cpu.pct: * AND fields.environment: production",
+				"filterQuery": "{\"bool\":{\"filter\":[{\"bool\":{\"should\":[{\"exists\":{\"field\":\"process.cpu.pct\"}}],\"minimum_should_match\":1}},{\"bool\":{\"should\":[{\"match\":{\"fields.environment\":\"production\"}}],\"minimum_should_match\":1}}]}}",
+				"groupBy": [
+					"fields.hostname.keyword"
+				],
+				"alertOnNoData": true
+			},
+			"rule_type_id": "metrics.alert.threshold",
+			"created_by": "albert",
+			"updated_by": "2836274424",
+			"created_at": "2021-04-19T18:36:28.323Z",
+			"updated_at": "2022-09-19T15:31:07.196Z",
+			"api_key_owner": "albert",
+			"notify_when": "onActionGroupChange",
+			"mute_all": false,
+			"muted_alert_ids": [],
+			"scheduled_task_id": "d285a720-cb1c-11ec-90b6-57a29a760dcb",
+			"execution_status": {
+				"status": "active",
+				"last_execution_date": "2024-02-09T19:37:55.599Z",
+				"last_duration": 731
+			},
+			"actions": [
+				{
+					"group": "metrics.threshold.fired",
+					"id": "0ddd9000-a128-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "```{{alertName}} - {{context.group}} is in a state of {{context.alertState}}\n\nReason:\n{{context.reason}}```"
+					},
+					"connector_type_id": ".slack"
+				},
+				{
+					"group": "metrics.threshold.fired",
+					"id": "0ddd9000-a128-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "```{{alertName}} - {{context.group}} - {{alertInstanceId}} has recovered```"
+					},
+					"connector_type_id": ".slack"
+				}
+			]
+		},
+		{
+			"id": "b9ebcc40-a13c-11eb-86c1-b7686061cd45",
+			"consumer": "alerts",
+			"tags": [
+				"production"
+			],
+			"name": "Production - CPU",
+			"enabled": true,
+			"throttle": null,
+			"schedule": {
+				"interval": "1m"
+			},
+			"params": {
+				"criteria": [
+					{
+						"comparator": ">",
+						"timeSize": 30,
+						"metric": "system.cpu.total.norm.pct",
+						"aggType": "avg",
+						"threshold": [
+							0.9
+						],
+						"timeUnit": "m"
+					}
+				],
+				"sourceId": "default",
+				"filterQueryText": "system.cpu.total.norm.pct: * and fields.environment: production",
+				"filterQuery": "{\"bool\":{\"filter\":[{\"bool\":{\"should\":[{\"exists\":{\"field\":\"system.cpu.total.norm.pct\"}}],\"minimum_should_match\":1}},{\"bool\":{\"should\":[{\"match\":{\"fields.environment\":\"production\"}}],\"minimum_should_match\":1}}]}}",
+				"alertOnNoData": false,
+				"groupBy": [
+					"fields.hostname.keyword"
+				],
+				"alertOnGroupDisappear": true,
+				"shouldDropPartialBuckets": true
+			},
+			"rule_type_id": "metrics.alert.threshold",
+			"created_by": "albert",
+			"updated_by": "bryce.andress-nml",
+			"created_at": "2021-04-19T18:26:16.270Z",
+			"updated_at": "2022-12-29T12:22:20.342Z",
+			"api_key_owner": "bryce.andress-nml",
+			"notify_when": "onActionGroupChange",
+			"mute_all": false,
+			"muted_alert_ids": [],
+			"scheduled_task_id": "c0cbfe80-cb1c-11ec-90b6-57a29a760dcb",
+			"execution_status": {
+				"status": "active",
+				"last_execution_date": "2024-02-09T19:37:55.598Z",
+				"last_duration": 736
+			},
+			"actions": [
+				{
+					"group": "metrics.threshold.fired",
+					"id": "0ddd9000-a128-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "```{{alertName}} - {{context.group}} is in a state of {{context.alertState}}\n\nReason:\n{{context.reason}}```\n"
+					},
+					"connector_type_id": ".slack"
+				},
+				{
+					"group": "metrics.threshold.fired",
+					"id": "0ddd9000-a128-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "```{{alertName}} - {{context.group}} - {{alertInstanceId}} has recovered```\n"
+					},
+					"connector_type_id": ".slack"
+				}
+			]
+		},
+		{
+			"id": "ff75e900-9eec-11eb-86c1-b7686061cd45",
+			"consumer": "alerts",
+			"tags": [
+				"staging"
+			],
+			"name": "Staging - DiskUsage",
+			"enabled": true,
+			"throttle": null,
+			"schedule": {
+				"interval": "1m"
+			},
+			"params": {
+				"criteria": [
+					{
+						"comparator": ">",
+						"timeSize": 10,
+						"metric": "system.filesystem.used.pct",
+						"aggType": "max",
+						"threshold": [
+							0.9
+						],
+						"timeUnit": "m"
+					}
+				],
+				"sourceId": "default",
+				"groupBy": [
+					"fields.hostname.keyword"
+				],
+				"alertOnNoData": false,
+				"filterQueryText": "system.filesystem.used.pct:* AND fields.environment: development",
+				"filterQuery": "{\"bool\":{\"filter\":[{\"bool\":{\"should\":[{\"exists\":{\"field\":\"system.filesystem.used.pct\"}}],\"minimum_should_match\":1}},{\"bool\":{\"should\":[{\"match\":{\"fields.environment\":\"development\"}}],\"minimum_should_match\":1}}]}}"
+			},
+			"rule_type_id": "metrics.alert.threshold",
+			"created_by": "albert",
+			"updated_by": "jason.robin",
+			"created_at": "2021-04-16T19:50:30.654Z",
+			"updated_at": "2023-01-13T18:44:25.512Z",
+			"api_key_owner": "albert",
+			"notify_when": "onActionGroupChange",
+			"mute_all": false,
+			"muted_alert_ids": [
+				"bastion-sandbox"
+			],
+			"scheduled_task_id": "d285f540-cb1c-11ec-90b6-57a29a760dcb",
+			"execution_status": {
+				"status": "active",
+				"last_execution_date": "2024-02-09T19:37:58.723Z",
+				"last_duration": 537
+			},
+			"actions": [
+				{
+					"group": "metrics.threshold.fired",
+					"id": "9743de50-9eec-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "```{{alertName}} - {{context.group}} is in a state of {{context.alertState}}\n\nReason:\n{{context.reason}}```\n"
+					},
+					"connector_type_id": ".slack"
+				},
+				{
+					"group": "recovered",
+					"id": "9743de50-9eec-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "```{{alertName}} - {{context.group}} - {{alertInstanceId}} has recovered```"
+					},
+					"connector_type_id": ".slack"
+				}
+			]
+		},
+		{
+			"id": "f362dfc0-9f77-11eb-86c1-b7686061cd45",
+			"consumer": "alerts",
+			"tags": [
+				"staging"
+			],
+			"name": "Staging - CPU",
+			"enabled": true,
+			"throttle": null,
+			"schedule": {
+				"interval": "1m"
+			},
+			"params": {
+				"criteria": [
+					{
+						"comparator": ">",
+						"timeSize": 15,
+						"metric": "system.cpu.total.norm.pct",
+						"aggType": "avg",
+						"threshold": [
+							0.9
+						],
+						"timeUnit": "m"
+					}
+				],
+				"sourceId": "default",
+				"filterQueryText": "system.cpu.total.norm.pct: * and fields.environment: development",
+				"filterQuery": "{\"bool\":{\"filter\":[{\"bool\":{\"should\":[{\"exists\":{\"field\":\"system.cpu.total.norm.pct\"}}],\"minimum_should_match\":1}},{\"bool\":{\"should\":[{\"match\":{\"fields.environment\":\"development\"}}],\"minimum_should_match\":1}}]}}",
+				"groupBy": [
+					"fields.hostname.keyword"
+				],
+				"alertOnNoData": false
+			},
+			"rule_type_id": "metrics.alert.threshold",
+			"created_by": "albert",
+			"updated_by": "2836274424",
+			"created_at": "2021-04-17T12:25:10.818Z",
+			"updated_at": "2022-09-19T15:31:07.203Z",
+			"api_key_owner": "albert",
+			"notify_when": "onActionGroupChange",
+			"mute_all": false,
+			"muted_alert_ids": [],
+			"scheduled_task_id": "d285ce30-cb1c-11ec-90b6-57a29a760dcb",
+			"execution_status": {
+				"status": "active",
+				"last_execution_date": "2024-02-09T19:37:58.723Z",
+				"last_duration": 563
+			},
+			"actions": [
+				{
+					"group": "metrics.threshold.fired",
+					"id": "9743de50-9eec-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "```{{alertName}} - {{context.group}} is in a state of {{context.alertState}}\n\nReason:\n{{context.reason}}```\n\n"
+					},
+					"connector_type_id": ".slack"
+				},
+				{
+					"group": "recovered",
+					"id": "9743de50-9eec-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "```{{alertName}} - {{context.group}} - {{alertInstanceId}} has recovered```"
+					},
+					"connector_type_id": ".slack"
+				}
+			]
+		},
+		{
+			"id": "a2838f60-a13d-11eb-86c1-b7686061cd45",
+			"consumer": "alerts",
+			"tags": [
+				"production"
+			],
+			"name": "Production - Memory",
+			"enabled": true,
+			"throttle": null,
+			"schedule": {
+				"interval": "1m"
+			},
+			"params": {
+				"criteria": [
+					{
+						"comparator": ">",
+						"timeSize": 5,
+						"metric": "system.memory.actual.used.pct",
+						"aggType": "avg",
+						"threshold": [
+							0.8
+						],
+						"timeUnit": "m"
+					}
+				],
+				"sourceId": "default",
+				"filterQueryText": "system.memory.actual.used.pct: * AND fields.environment: production",
+				"filterQuery": "{\"bool\":{\"filter\":[{\"bool\":{\"should\":[{\"exists\":{\"field\":\"system.memory.actual.used.pct\"}}],\"minimum_should_match\":1}},{\"bool\":{\"should\":[{\"match\":{\"fields.environment\":\"production\"}}],\"minimum_should_match\":1}}]}}",
+				"groupBy": [
+					"fields.hostname.keyword"
+				],
+				"alertOnNoData": true
+			},
+			"rule_type_id": "metrics.alert.threshold",
+			"created_by": "albert",
+			"updated_by": "2836274424",
+			"created_at": "2021-04-19T18:32:46.757Z",
+			"updated_at": "2022-09-19T15:30:37.613Z",
+			"api_key_owner": "albert",
+			"notify_when": "onActionGroupChange",
+			"mute_all": false,
+			"muted_alert_ids": [],
+			"scheduled_task_id": "d2861c51-cb1c-11ec-90b6-57a29a760dcb",
+			"execution_status": {
+				"status": "active",
+				"last_execution_date": "2024-02-09T19:37:58.722Z",
+				"last_duration": 569
+			},
+			"actions": [
+				{
+					"group": "metrics.threshold.fired",
+					"id": "0ddd9000-a128-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "```{{alertName}} - {{context.group}} is in a state of {{context.alertState}}\n\nReason:\n{{context.reason}}```\n"
+					},
+					"connector_type_id": ".slack"
+				},
+				{
+					"group": "metrics.threshold.fired",
+					"id": "0ddd9000-a128-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "```{{alertName}} - {{context.group}} - {{alertInstanceId}} has recovered```\n"
+					},
+					"connector_type_id": ".slack"
+				}
+			]
+		},
+		{
+			"id": "13253500-a13b-11eb-86c1-b7686061cd45",
+			"consumer": "alerts",
+			"tags": [
+				"production"
+			],
+			"name": "Production - DiskUsage",
+			"enabled": true,
+			"throttle": null,
+			"schedule": {
+				"interval": "1m"
+			},
+			"params": {
+				"criteria": [
+					{
+						"comparator": ">",
+						"timeSize": 30,
+						"metric": "system.filesystem.used.pct",
+						"aggType": "max",
+						"threshold": [
+							0.95
+						],
+						"timeUnit": "m"
+					}
+				],
+				"sourceId": "default",
+				"alertOnNoData": false,
+				"filterQueryText": "system.filesystem.used.pct: * AND fields.environment: production",
+				"filterQuery": "{\"bool\":{\"filter\":[{\"bool\":{\"should\":[{\"exists\":{\"field\":\"system.filesystem.used.pct\"}}],\"minimum_should_match\":1}},{\"bool\":{\"should\":[{\"match\":{\"fields.environment\":\"production\"}}],\"minimum_should_match\":1}}]}}",
+				"groupBy": [
+					"fields.hostname.keyword"
+				],
+				"alertOnGroupDisappear": true,
+				"shouldDropPartialBuckets": true
+			},
+			"rule_type_id": "metrics.alert.threshold",
+			"created_by": "albert",
+			"updated_by": "bryce.andress-nml",
+			"created_at": "2021-04-19T18:14:26.715Z",
+			"updated_at": "2023-01-02T14:44:49.678Z",
+			"api_key_owner": "bryce.andress-nml",
+			"notify_when": "onActionGroupChange",
+			"mute_all": false,
+			"muted_alert_ids": [],
+			"scheduled_task_id": "e134b6a0-382f-11ed-9f15-71d5ff75d881",
+			"execution_status": {
+				"status": "active",
+				"last_execution_date": "2024-02-09T19:37:58.723Z",
+				"last_duration": 570
+			},
+			"actions": [
+				{
+					"group": "metrics.threshold.fired",
+					"id": "0ddd9000-a128-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "```{{alertName}} - {{context.group}} is in a state of {{context.alertState}}\n\nReason:\n{{context.reason}}```\n"
+					},
+					"connector_type_id": ".slack"
+				},
+				{
+					"group": "recovered",
+					"id": "0ddd9000-a128-11eb-86c1-b7686061cd45",
+					"params": {
+						"message": "```{{alertName}} - {{context.group}} - {{alertInstanceId}} has recovered```"
+					},
+					"connector_type_id": ".slack"
+				}
+			]
+		},
+		{
+			"id": "f5a3d840-a8fd-11eb-86c1-b7686061cd45",
+			"consumer": "alerts",
+			"tags": [
+				"database"
+			],
+			"name": "Production - MongoDB Errors",
+			"enabled": true,
+			"throttle": null,
+			"schedule": {
+				"interval": "1m"
+			},
+			"params": {
+				"esQuery": "{\n  \"query\": {\n      \"bool\": { \n          \"must\": [ \n              {\n                \"query_string\": {\n                    \"query\": \"NOT severity: I\"\n                }\n              }\n            ] \n        }\n  }\n}",
+				"size": 100,
+				"timeWindowSize": 5,
+				"timeWindowUnit": "m",
+				"threshold": [
+					1
+				],
+				"thresholdComparator": ">",
+				"index": [
+					"mongologs-*"
+				],
+				"timeField": "@timestamp",
+				"searchType": "esQuery"
+			},
+			"rule_type_id": ".es-query",
+			"created_by": "albert",
+			"updated_by": "2836274424",
+			"created_at": "2021-04-29T15:17:07.376Z",
+			"updated_at": "2022-09-19T15:31:07.199Z",
+			"api_key_owner": "albert",
+			"notify_when": "onActionGroupChange",
+			"mute_all": false,
+			"muted_alert_ids": [],
+			"scheduled_task_id": "d285a721-cb1c-11ec-90b6-57a29a760dcb",
+			"execution_status": {
+				"status": "ok",
+				"last_execution_date": "2024-02-09T19:37:58.721Z",
+				"last_duration": 1255
+			},
+			"actions": []
+		},
+		{
+			"id": "48820bb0-5dec-11ec-ad34-07629ed0724f",
+			"consumer": "alerts",
+			"tags": [
+				"business"
+			],
+			"name": "Business - Apache Traffic",
+			"enabled": true,
+			"throttle": null,
+			"schedule": {
+				"interval": "1m"
+			},
+			"params": {
+				"esQuery": "{\n  \"query\": {\n      \"bool\": { \n          \"must\": [ \n              {\n                \"query_string\": {\n                    \"query\": \"filename: \\\"shop-access\\\" AND response: 2*\"\n                }\n              }\n            ] \n        }\n  }\n}",
+				"size": 100,
+				"timeWindowSize": 5,
+				"timeWindowUnit": "m",
+				"threshold": [
+					60
+				],
+				"thresholdComparator": "<",
+				"index": [
+					"apachelogs-*"
+				],
+				"timeField": "@timestamp",
+				"searchType": "esQuery",
+				"excludeHitsFromPreviousRun": true
+			},
+			"rule_type_id": ".es-query",
+			"created_by": "albert",
+			"updated_by": "jason.robin",
+			"created_at": "2021-12-15T21:16:38.504Z",
+			"updated_at": "2023-04-14T21:40:55.573Z",
+			"api_key_owner": "jason.robin",
+			"notify_when": "onActionGroupChange",
+			"mute_all": false,
+			"muted_alert_ids": [],
+			"scheduled_task_id": "c0cc2590-cb1c-11ec-90b6-57a29a760dcb",
+			"execution_status": {
+				"status": "ok",
+				"last_execution_date": "2024-02-09T19:37:58.724Z",
+				"last_duration": 1263
+			},
+			"actions": [
+				{
+					"group": "query matched",
+					"id": "79ac2510-a9bd-11eb-86c1-b7686061cd45",
+					"params": {
+						"subject": "Clicks - Low Traffic Alarm Triggered",
+						"to": [
+							"tech-alerts@magiclinks.com"
+						],
+						"message": "Click traffic over the last 5 minutes is very low:\n\n- Value: {{context.value}}\n- Conditions Met: {{context.conditions}} over {{params.timeWindowSize}}{{params.timeWindowUnit}}\n- Timestamp: {{context.date}}"
+					},
+					"connector_type_id": ".email"
+				},
+				{
+					"group": "recovered",
+					"id": "79ac2510-a9bd-11eb-86c1-b7686061cd45",
+					"params": {
+						"subject": "Clicks - Low Traffic Alarm Recovered",
+						"to": [
+							"tech-alerts@magiclinks.com"
+						],
+						"message": "Click traffic over the last 5 minutes back up to acceptable values. Hits received in last 5 minutes - {{context.value}}"
+					},
+					"connector_type_id": ".email"
+				},
+				{
+					"group": "query matched",
+					"id": "15d75610-5dcf-11ec-ad34-07629ed0724f",
+					"params": {
+						"message": "Click traffic over the last 5 minutes is very low:\n\n- Value: {{context.value}}\n- Conditions Met: {{context.conditions}} over {{params.timeWindowSize}}{{params.timeWindowUnit}}\n- Timestamp: {{context.date}}"
+					},
+					"connector_type_id": ".slack"
+				},
+				{
+					"group": "recovered",
+					"id": "15d75610-5dcf-11ec-ad34-07629ed0724f",
+					"params": {
+						"message": "Click traffic over the last 5 minutes back up to acceptable values. Hits received in last 5 minutes - {{context.value}}"
+					},
+					"connector_type_id": ".slack"
+				}
+			]
+		}
+	]
+}
